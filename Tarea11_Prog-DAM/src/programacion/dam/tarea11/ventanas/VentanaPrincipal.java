@@ -4,12 +4,12 @@ package programacion.dam.tarea11.ventanas;
  *
  * @author Roach
  */
-public class Principal extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public VentanaPrincipal() {
         initComponents();
     }
 
