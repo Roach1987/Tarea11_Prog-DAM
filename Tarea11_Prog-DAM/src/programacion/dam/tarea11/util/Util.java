@@ -4,12 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Roach
  */
 public class Util {
+    
+    // Constantes de clase
+    public static final int INFORMACION = JOptionPane.INFORMATION_MESSAGE;
+    public static final int ADVERTENCIA = JOptionPane.WARNING_MESSAGE;
+    public static final int ERROR = JOptionPane.ERROR_MESSAGE;
 
 // ************************************************************************************************
 // ************************************ Conexion BDD **********************************************
@@ -23,13 +29,12 @@ public class Util {
         Connection conexion = null;
         String username = "root";
         String password = "root";
-        String url = "jdbc:mysql://localhost:3306/aerolinea";
-                
+        String url = "jdbc:mysql://localhost:3306/aerolinea?serverTimezone=UTC";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al crear la conexión con MySQL", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException | SQLException ex) {
+            mostrarMensaje(null, "Error al crear la conexión con MySQL", ERROR);
         }
         return conexion;
     }
@@ -42,7 +47,7 @@ public class Util {
         try {
             conexion.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar conexion", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarMensaje(null, "Error al cerrar conexion", ERROR);
         }
     }
 
@@ -50,4 +55,19 @@ public class Util {
 // ************************************ Validaciones **********************************************
 // ************************************************************************************************    
     
+    
+    
+// ************************************************************************************************
+// ************************************ Utilitarios ***********************************************
+// ************************************************************************************************        
+    /**
+     * Método para mostrar mensajes de error generados en el flujo del programa.
+     * @param panel
+     * @param mensaje 
+     * @param severidad 
+     */
+    public static void mostrarMensaje(JPanel panel,String mensaje, int severidad){
+        JOptionPane.showMessageDialog(panel, mensaje, "Información del sistema", 
+                severidad);
+    }
 }
