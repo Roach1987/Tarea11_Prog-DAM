@@ -40,9 +40,9 @@ public class AvionDAO {
             declaracion.setInt (3, avion.getNumeroPlazas());
 
             // ejecutamos la declaración preparada
-            declaracion.execute();
+            int lineaAltereda = declaracion.executeUpdate();
+            respuesta = lineaAltereda > 0;
             declaracion.close();
-            respuesta = true;
         }catch(SQLException ex){
             Util.mostrarMensaje(null, "Error al insertar el registro del nuevo avión", Util.ADVERTENCIA);
         }finally{
@@ -57,9 +57,11 @@ public class AvionDAO {
     /**
      * Método para borrar un avión de la BDD.
      * @param codigo
+     * @return boolean
      */
-    public static void borrarAvion(String codigo){
+    public static boolean borrarAvion(String codigo){
         // Delete
+        boolean respuesta = false;
         Connection conexion = null;
         PreparedStatement declaracion = null;
         try {
@@ -72,7 +74,8 @@ public class AvionDAO {
             declaracion.setString (1, codigo);
             
             // ejecutamos la declaración preparada
-            declaracion.execute();
+            int lineaAlterada = declaracion.executeUpdate();
+            respuesta = lineaAlterada > 0;
             declaracion.close();
         } catch (SQLException ex) {
             Util.mostrarMensaje(null, "Error al borrar el registro del avión con codigo ".concat(codigo),
@@ -82,7 +85,8 @@ public class AvionDAO {
             if(null != conexion){
                 Util.cierraConexion(conexion);
             }
-        }   
+        }
+        return respuesta;
     }
     
     /**
@@ -90,7 +94,7 @@ public class AvionDAO {
      * @return List
      */
     public static List<Avion> recuperarAviones(){
-        // Create
+        // Read
         List<Avion> listaAviones = new ArrayList();
         Connection conexion = null;
         Statement declaracion = null;

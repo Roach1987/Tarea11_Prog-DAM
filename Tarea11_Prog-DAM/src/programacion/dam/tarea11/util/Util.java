@@ -3,6 +3,9 @@ package programacion.dam.tarea11.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -70,4 +73,15 @@ public class Util {
         JOptionPane.showMessageDialog(panel, mensaje, "Información del sistema", 
                 severidad);
     }
+    
+    /**
+     * Método que convierte una fecha java.util.Date a java.sql.Timestamp
+     * @param fecha
+     * @return java.sql.Timestamp
+     */
+    public static Timestamp convertirFechas(Date fecha) {
+        Timestamp timestamp = new Timestamp(fecha.getTime());
+        return timestamp;
+    }
+    
 }
