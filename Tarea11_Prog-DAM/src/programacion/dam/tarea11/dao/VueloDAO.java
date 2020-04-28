@@ -117,7 +117,7 @@ public class VueloDAO {
         // Delete
         boolean respuesta = false;
         Connection conexion = null;
-        PreparedStatement declaracion = null;;
+        PreparedStatement declaracion = null;
         try {
             // Establecemos la conexión con la BDD.
             conexion = Util.establecerConexion();

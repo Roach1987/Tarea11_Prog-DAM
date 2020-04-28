@@ -19,6 +19,8 @@ public class Util {
     public static final int INFORMACION = JOptionPane.INFORMATION_MESSAGE;
     public static final int ADVERTENCIA = JOptionPane.WARNING_MESSAGE;
     public static final int ERROR = JOptionPane.ERROR_MESSAGE;
+    public static final String PLAZA_RESERVADA = "Reservada";
+    public static final String PLAZA_DISPONIBLE = "Disponible";
 
 // ************************************************************************************************
 // ************************************ Conexion BDD **********************************************
