@@ -257,7 +257,7 @@ public class VueloDAO {
             consulta.close();
             declaracion.close();
         } catch (SQLException ex) {
-            Util.mostrarMensaje(null, "Error al recuperar el registro del avión con codigo ".concat(codigo),
+            Util.mostrarMensaje(null, "Error al recuperar el registro del vuelo con codigo ".concat(codigo),
                     Util.ADVERTENCIA);
         }finally{
             // Cerramos la conexión pase lo que pase.
@@ -266,6 +266,46 @@ public class VueloDAO {
             }
         }
         return vuelo;
+    }
+    
+        /**
+     * Método que busca en la tabla vuelo por el codigo de avión llegado por parametro
+     * devuelve true si existe por lo menos un vuelo asociado al avion.
+     * @param codigoAvion
+     * @return boolean
+     */
+    public static boolean buscarVueloPorCodigoAvion(String codigoAvion){
+        // Search
+        boolean respuesta = false;
+        Connection conexion = null;
+        PreparedStatement declaracion = null;
+        ResultSet consulta = null;
+        try {
+            // Establecemos la conexión con la BDD.
+            conexion = Util.establecerConexion();
+            
+            // Creamos la query pàra insertar el nuevo avión
+            String query = "SELECT codigo FROM vuelo "
+                    .concat("WHERE codigo_avion = ?");
+            declaracion = conexion.prepareStatement(query);
+            declaracion.setString (1, codigoAvion);
+            
+            // ejecutamos la declaración preparada
+            consulta = declaracion.executeQuery();
+            
+            respuesta = consulta.next();
+            consulta.close();
+            declaracion.close();
+        } catch (SQLException ex) {
+            Util.mostrarMensaje(null, "Error al recuperar el registro de los vuelos del avion con codigo ".
+                    concat(codigoAvion), Util.ADVERTENCIA);
+        }finally{
+            // Cerramos la conexión pase lo que pase.
+            if(null != conexion){
+                Util.cierraConexion(conexion);
+            }
+        }
+        return respuesta;
     }
     
     /**

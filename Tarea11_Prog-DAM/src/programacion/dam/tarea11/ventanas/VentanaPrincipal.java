@@ -1,16 +1,26 @@
 package programacion.dam.tarea11.ventanas;
 
+import javax.swing.SwingUtilities;
+import programacion.dam.tarea11.ventanas.avion.VentanaAvionPrincipal;
+import programacion.dam.tarea11.ventanas.vuelo.VentanaVueloPrincipal;
+
 /**
  *
  * @author Roach
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    // Atributos
+    VentanaAvionPrincipal ventanaAvionPrincipal;
+    VentanaVueloPrincipal ventanaVueloPricipal;
+
     /**
      * Creates new form Principal
      */
     public VentanaPrincipal() {
         initComponents();
+        ventanaAvionPrincipal = new VentanaAvionPrincipal();
+        ventanaVueloPricipal = new VentanaVueloPrincipal();
     }
 
     /**
@@ -23,21 +33,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelBotones = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        cbListaVuelos = new javax.swing.JComboBox<>();
-        jSeparator1 = new javax.swing.JSeparator();
         bAviones = new javax.swing.JButton();
         bVuelos = new javax.swing.JButton();
-        bPlazas = new javax.swing.JButton();
         bSalir = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jtbAccionesPrincipales = new javax.swing.JToolBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
-        jLabel2.setText("Lista de Vuelos");
 
         bAviones.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
         bAviones.setText("Aviones");
@@ -55,14 +58,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        bPlazas.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
-        bPlazas.setText("Plazas");
-        bPlazas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bPlazasActionPerformed(evt);
-            }
-        });
-
         bSalir.setBackground(new java.awt.Color(204, 204, 0));
         bSalir.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
         bSalir.setText("Salir");
@@ -77,44 +72,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanelBotonesLayout.setHorizontalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(bSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bVuelos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bAviones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbListaVuelos, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bPlazas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(bAviones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator2)))
+                    .addComponent(jSeparator2))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotonesLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(35, 35, 35))
         );
         jPanelBotonesLayout.setVerticalGroup(
             jPanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotonesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbListaVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(bPlazas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(85, 85, 85)
                 .addComponent(bAviones, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(85, 85, 85)
                 .addComponent(bVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(114, 114, 114)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -131,7 +109,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
                     .addComponent(jtbAccionesPrincipales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -155,21 +133,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_bSalirActionPerformed
 
     /**
-     * Acción para gestionar las plazas disponibles de un vuelo
-     * @param evt 
-     */
-    private void bPlazasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlazasActionPerformed
-        
-        // Crear codigo de evento
-    }//GEN-LAST:event_bPlazasActionPerformed
-
-    /**
      * Acción para gestionar los aviones
      * @param evt 
      */
     private void bAvionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAvionesActionPerformed
-        
-        // Crear codigo de evento
+        // limpiamos el panel
+        jtbAccionesPrincipales.removeAll();
+        jtbAccionesPrincipales.add(ventanaAvionPrincipal.AvionPrincipalPanel());
+        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        SwingUtilities.updateComponentTreeUI(this); 
     }//GEN-LAST:event_bAvionesActionPerformed
 
     /**
@@ -177,21 +149,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param evt 
      */
     private void bVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVuelosActionPerformed
-        
-        // Crear codigo de evento
+        // limpiamos el panel
+        jtbAccionesPrincipales.removeAll();
+        jtbAccionesPrincipales.add(ventanaVueloPricipal.vueloPrincipalPanel());
+        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        SwingUtilities.updateComponentTreeUI(this);
     }//GEN-LAST:event_bVuelosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAviones;
-    private javax.swing.JButton bPlazas;
     private javax.swing.JButton bSalir;
     private javax.swing.JButton bVuelos;
-    private javax.swing.JComboBox<String> cbListaVuelos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanelBotones;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JToolBar jtbAccionesPrincipales;
     // End of variables declaration//GEN-END:variables

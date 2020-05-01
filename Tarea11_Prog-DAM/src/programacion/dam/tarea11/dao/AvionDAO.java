@@ -44,7 +44,13 @@ public class AvionDAO {
             respuesta = lineaAltereda > 0;
             declaracion.close();
         }catch(SQLException ex){
-            Util.mostrarMensaje(null, "Error al insertar el registro del nuevo avión", Util.ADVERTENCIA);
+            System.out.println(ex.getMessage());
+            if(ex.getMessage().contains("Duplicate entry")){
+                Util.mostrarMensaje(null, "Ya existe un avión con codigo ".concat(avion.getCodigo())
+                        , Util.ADVERTENCIA);
+            }else{
+                Util.mostrarMensaje(null, "Error al insertar el registro del nuevo avión", Util.ADVERTENCIA);
+            }
         }finally{
             // Cerramos la conexión pase lo que pase.
             if(null != conexion){

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,6 +20,8 @@ public class Util {
     public static final int ERROR = JOptionPane.ERROR_MESSAGE;
     public static final String PLAZA_RESERVADA = "Reservada";
     public static final String PLAZA_DISPONIBLE = "Disponible";
+    public static final String DISTINTIVO_BORRAR = "BORRAR";
+    public static final String DISTINTIVO_CONSULTAR = "CONSULTAR";
 
 // ************************************************************************************************
 // ************************************ Conexion BDD **********************************************
@@ -59,7 +60,27 @@ public class Util {
 // ************************************************************************************************
 // ************************************ Validaciones **********************************************
 // ************************************************************************************************    
-    
+    /**
+     * Método en el que validaremos que el String llegado sean todo
+     * numeros.
+     * @param cadena
+     * @return (boolean) true si todos los caracteres de la cadena llegada son
+     * numeros.
+     */
+    public static boolean validaNumeros(String cadena) {
+        boolean resultado = true;
+        int longitud = cadena.length();
+
+        // Recorremos la cadena llegada
+        for (int i = 0; i < longitud; i++) {
+            // Comprobamos que el caracter es un numero.
+            if (!Character.isDigit(cadena.charAt(i))) {
+                resultado = false;
+                break;
+            }
+        }
+        return resultado;
+    }
     
     
 // ************************************************************************************************
@@ -85,5 +106,6 @@ public class Util {
         Timestamp timestamp = new Timestamp(fecha.getTime());
         return timestamp;
     }
+    
     
 }
