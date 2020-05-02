@@ -144,8 +144,8 @@ public class VentanaVueloPrincipal extends javax.swing.JPanel {
     private void bBuscarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarVueloActionPerformed
         // limpiamos el panel
         jtbAccionesVuelo.removeAll();
-//        jtbAccionesVuelo.add(ventanaAvionPrincipal.AvionPrincipalPanel());
-        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        jtbAccionesVuelo.add(ventanaVueloBuscar.ventanaBuscarVuelo());
+        // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
         
     }//GEN-LAST:event_bBuscarVueloActionPerformed
@@ -157,10 +157,9 @@ public class VentanaVueloPrincipal extends javax.swing.JPanel {
     private void bListaVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListaVuelosActionPerformed
         // limpiamos el panel
         jtbAccionesVuelo.removeAll();
-//        jtbAccionesVuelo.add(ventanaAvionPrincipal.AvionPrincipalPanel());
-        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        jtbAccionesVuelo.add(ventanaVueloLista.ventanaListaVuelo());
+        // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
-        
     }//GEN-LAST:event_bListaVuelosActionPerformed
 
     /**
@@ -171,7 +170,7 @@ public class VentanaVueloPrincipal extends javax.swing.JPanel {
         // limpiamos el panel
         jtbAccionesVuelo.removeAll();
 //        jtbAccionesVuelo.add(ventanaAvionPrincipal.AvionPrincipalPanel());
-        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
         
     }//GEN-LAST:event_bCrearVueloActionPerformed
@@ -184,7 +183,7 @@ public class VentanaVueloPrincipal extends javax.swing.JPanel {
         // limpiamos el panel
         jtbAccionesVuelo.removeAll();
 //        jtbAccionesVuelo.add(ventanaAvionPrincipal.AvionPrincipalPanel());
-        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
         
     }//GEN-LAST:event_bBorrarVueloActionPerformed

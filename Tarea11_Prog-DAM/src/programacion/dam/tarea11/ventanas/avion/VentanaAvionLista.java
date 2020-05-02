@@ -28,7 +28,7 @@ public class VentanaAvionLista extends javax.swing.JPanel {
      * @return 
      */
     public JPanel ventanaListaAvion() {
-        // Pintamos los atributos mas importantes de los articulos.
+        // Pintamos los atributos mas importantes de los Aviones.
         String[] columnas = {"Código de Avion", "Modelo", "Numero de Plazas"};
         modelo = new DefaultTableModel(null, columnas);
 
@@ -77,7 +77,7 @@ public class VentanaAvionLista extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)

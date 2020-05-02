@@ -145,7 +145,7 @@ public class VentanaAvionPrincipal extends javax.swing.JPanel {
         // limpiamos el panel
         jtbAccionesAvion.removeAll();
         jtbAccionesAvion.add(ventanaAvionCrear.ventanaNuevoAvion());
-        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
     }//GEN-LAST:event_bCrearAvionActionPerformed
 
@@ -157,7 +157,7 @@ public class VentanaAvionPrincipal extends javax.swing.JPanel {
         // limpiamos el panel
         jtbAccionesAvion.removeAll();
         jtbAccionesAvion.add(ventanaAvionMix.ventanaMix(Util.DISTINTIVO_CONSULTAR));
-        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
     }//GEN-LAST:event_bBuscarAvionActionPerformed
 
@@ -169,7 +169,7 @@ public class VentanaAvionPrincipal extends javax.swing.JPanel {
         // limpiamos el panel
         jtbAccionesAvion.removeAll();
         jtbAccionesAvion.add(ventanaAvionLista.ventanaListaAvion());
-        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
     }//GEN-LAST:event_bListaAvionActionPerformed
 
@@ -181,7 +181,7 @@ public class VentanaAvionPrincipal extends javax.swing.JPanel {
         // limpiamos el panel
         jtbAccionesAvion.removeAll();
         jtbAccionesAvion.add(ventanaAvionMix.ventanaMix(Util.DISTINTIVO_BORRAR));
-        // Cambiamos el aspecto del panel auxiliar y pintamos la vista de Ingresar en cuenta.
+        // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
     }//GEN-LAST:event_bBorrarAvionActionPerformed
 

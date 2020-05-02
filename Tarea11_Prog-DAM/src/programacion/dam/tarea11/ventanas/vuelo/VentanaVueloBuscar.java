@@ -1,13 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package programacion.dam.tarea11.ventanas.vuelo;
+
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JPanel;
+import programacion.dam.tarea11.dao.UtilDAO;
+import programacion.dam.tarea11.util.Util;
 
 /**
  *
- * @author Roach_Mimi
+ * @author Roach
  */
 public class VentanaVueloBuscar extends javax.swing.JPanel {
 
@@ -16,6 +17,10 @@ public class VentanaVueloBuscar extends javax.swing.JPanel {
      */
     public VentanaVueloBuscar() {
         initComponents();
+    }
+    
+    public JPanel ventanaBuscarVuelo(){
+        return this;
     }
 
     /**
@@ -27,19 +32,150 @@ public class VentanaVueloBuscar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        bBuscarVuelo = new javax.swing.JButton();
+        tOrigen = new javax.swing.JTextField();
+        tDestino = new javax.swing.JTextField();
+        tFechaSalida = new javax.swing.JFormattedTextField();
+
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jLabel1.setText("BUSCAR");
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel2.setText("Aeropuerto Origen:");
+
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel3.setText("Aeropuerto Destino:");
+
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel4.setText("Fecha Salida:");
+
+        bBuscarVuelo.setBackground(new java.awt.Color(204, 204, 0));
+        bBuscarVuelo.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        bBuscarVuelo.setText("BUSCAR");
+        bBuscarVuelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarVueloActionPerformed(evt);
+            }
+        });
+
+        try {
+            tFechaSalida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-#### ##:##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(96, 96, 96)
+                                .addComponent(tOrigen))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(90, 90, 90)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bBuscarVuelo)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tDestino)
+                                        .addComponent(tFechaSalida, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(215, 215, 215)
+                        .addComponent(jLabel1)))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(tOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel3))
+                    .addComponent(tDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addComponent(bBuscarVuelo)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción para buscar 
+     * @param evt 
+     */
+    private void bBuscarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarVueloActionPerformed
+        if(validarFormulario()){
+            List<String> lista = UtilDAO.buscarVuelo(tOrigen.getText(), tDestino.getText(), tFechaSalida.getText());
+        
+            if(null != lista && !lista.isEmpty()){
+                String[] arrayLista = new String[lista.size()];;
+                arrayLista = lista.toArray(arrayLista);
+                String mensaje = Arrays.toString(arrayLista);
+                Util.mostrarMensaje(null, mensaje, Util.INFORMACION);
+            }
+        }
+    }//GEN-LAST:event_bBuscarVueloActionPerformed
+
+// ***************************************************************************************************
+// ************************************ Utilidades de la Clase ***************************************
+// ***************************************************************************************************
+    
+    /**
+     * Método que realiza las validaciones del formulario de consulta de vuelos
+     * @return boolean
+     */
+    private boolean validarFormulario(){
+        // Codigo avión
+        if(tOrigen.getText().equals("")){
+            Util.mostrarMensaje(this, "El campo Aeropuerto Origen no puede estar vacio", Util.INFORMACION);
+            return false;
+        }
+        
+        if(tDestino.getText().equals("")){
+            Util.mostrarMensaje(this, "El campo Aeropuerto Destino no puede estar vacio", Util.INFORMACION);
+            return false;
+        }
+        
+        if(tOrigen.getText().equalsIgnoreCase(tDestino.getText())){
+            Util.mostrarMensaje(this, "Los campos de Aeropuerto Origen y Aeropuerto Destino no pueden ser iguales.", Util.INFORMACION);
+            return false;
+        }
+        
+        if(tFechaSalida.getText().equals("  -  -       :  :  ")){
+            Util.mostrarMensaje(this, "El campo Fecha Salida no puede estar vacio", Util.INFORMACION);
+            return false;
+        }
+       return true;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bBuscarVuelo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField tDestino;
+    private javax.swing.JFormattedTextField tFechaSalida;
+    private javax.swing.JTextField tOrigen;
     // End of variables declaration//GEN-END:variables
 }

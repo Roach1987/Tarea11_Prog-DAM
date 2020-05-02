@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -22,6 +26,7 @@ public class Util {
     public static final String PLAZA_DISPONIBLE = "Disponible";
     public static final String DISTINTIVO_BORRAR = "BORRAR";
     public static final String DISTINTIVO_CONSULTAR = "CONSULTAR";
+    public static final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
 // ************************************************************************************************
 // ************************************ Conexion BDD **********************************************
@@ -107,5 +112,41 @@ public class Util {
         return timestamp;
     }
     
+        /**
+     * Método que comprueba el formato de una fecha, el formato debe de ser yyyy-MM-dd HH:mm:ss.
+     * @param fecha
+     * @return boolean si la fecha es valida.
+     */
+    public static boolean validarFecha(String fecha) {
+        boolean resultado;
+        try {
+            // Seteamos al formato fecha el modo  Modo no-permisivo
+            // para que solo soporte el formato yyyy-MM-dd HH:mm:ss
+            FORMATO_FECHA.setLenient(false);
+            FORMATO_FECHA.parse(fecha);
+            resultado = true;
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+            // Si la fecha llegada por parametro es invalida, el metodo devolvera
+            // false
+            resultado = false;
+        }
+        return resultado;
+    }
     
+    /**
+     * Método que crea una fecha apartir de un String con el formato yyyy-MM-dd HH:mm:ss
+     * @param fecha
+     * @return Date
+     */
+    public static Date crearFecha(String fecha){
+        Date fechaResultado = null;
+        try {
+            fechaResultado = FORMATO_FECHA.parse(fecha);
+        } catch (ParseException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return fechaResultado;
+    }    
 }

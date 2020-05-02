@@ -27,7 +27,7 @@
               <Component id="jPanelBotones" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" pref="782" max="32767" attributes="0"/>
+                  <Component id="jLabel1" pref="799" max="32767" attributes="0"/>
                   <Component id="jtbAccionesPrincipales" max="32767" attributes="0"/>
               </Group>
           </Group>

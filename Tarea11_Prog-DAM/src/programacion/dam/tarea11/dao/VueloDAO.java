@@ -205,9 +205,16 @@ public class VueloDAO {
             consulta = declaracion.executeQuery(query);
             
             while(consulta.next()){
+                // Recogemos las fechas obtenendolas con el getString para obtener
+                // tambien las horas
+                Date fechaSalida = Timestamp.valueOf(consulta.getString(6));
+                Date fechaLlegada = Timestamp.valueOf(consulta.getString(7));
+                Date fechaEscala = (null != consulta.getString(8)) ? 
+                        Timestamp.valueOf(consulta.getString(8)) : null;
+
                 Vuelo vuelo = new Vuelo(consulta.getString(1), consulta.getString(2), consulta.getInt(3), 
-                                            consulta.getString(4), consulta.getString(5), consulta.getDate(6),
-                                            consulta.getDate(7), consulta.getDate(8));
+                                            consulta.getString(4), consulta.getString(5), fechaSalida,
+                                            fechaLlegada, fechaEscala);
                 listaVuelos.add(vuelo);
             }
             consulta.close();
@@ -329,16 +336,18 @@ public class VueloDAO {
             // Creamos la query pàra insertar el nuevo avión
             String query = "SELECT codigo, codigo_avion, numero_plazas_disponibles, aeropuerto_origen, "
                     .concat("aeropuerto_destino, fecha_salida, fecha_llegada, fecha_escala FROM vuelo ")
-                    .concat("WHERE aeropuerto_origen = ? AND aeropuerto_destino = ? AND fecha_salida = ?");
+                    .concat("WHERE aeropuerto_origen = ? AND ")
+                    .concat("aeropuerto_destino = ? ")
+                    .concat("AND fecha_salida = ?");
             declaracion = conexion.prepareStatement(query);
             declaracion.setString (1, aeropuertoOrigen);
             declaracion.setString (2, aeropuertoDestino);
             Timestamp fechaSalidaBusqueda = Util.convertirFechas(fechaSalida);
             declaracion.setTimestamp(3, fechaSalidaBusqueda);
-            
+
             // ejecutamos la declaración preparada
             consulta = declaracion.executeQuery();
-            
+            System.out.println(consulta.next());
             while(consulta.next()){
                 Vuelo vuelo = new Vuelo(consulta.getString(1), consulta.getString(2), consulta.getInt(3), 
                                             consulta.getString(4), consulta.getString(5), consulta.getDate(6),
