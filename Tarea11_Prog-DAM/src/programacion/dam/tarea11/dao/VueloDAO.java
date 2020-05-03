@@ -62,7 +62,14 @@ public class VueloDAO {
             declaracion.close();
             respuesta = lineaAlterada > 0;         
         }catch(SQLException ex){
-            Util.mostrarMensaje(null, "Error al insertar el registro del nuevo vuelo", Util.ADVERTENCIA);
+            System.out.println(ex.getMessage());
+            if(ex.getMessage().contains("Duplicate entry")){
+                Util.mostrarMensaje(null, "Ya existe un vuelo con codigo ".concat(vuelo.getCodigo())
+                        , Util.ADVERTENCIA);
+            }else{
+                Util.mostrarMensaje(null, "Error al insertar el registro del nuevo vuelo", Util.ADVERTENCIA);
+            }
+            
         }finally{
             // Cerramos la conexión pase lo que pase.
             if(null != conexion){

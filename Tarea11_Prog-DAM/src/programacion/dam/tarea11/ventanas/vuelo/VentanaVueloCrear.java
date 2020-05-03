@@ -154,7 +154,7 @@ public class VentanaVueloCrear extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(tCodigoAvion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(tAerouertoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -185,7 +185,8 @@ public class VentanaVueloCrear extends javax.swing.JPanel {
      */
     private void bCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCrearActionPerformed
         if(validarFormulario()){
-            String fechaEscala = (null != tFechaEscala.getText().trim()) ? tFechaEscala.getText().trim() 
+            String fechaEscala = (null != tFechaEscala.getText().trim() &&
+                    !tFechaEscala.getText().equals("  /  /       :  :  "))? tFechaEscala.getText().trim() 
                     : null;
             String mensaje = UtilDAO.crearNuevoVuelo(tCodigoVuelo.getText().trim(), tCodigoAvion.getText().trim(),
                     tAerouertoOrigen.getText().trim(), tAeropuertoDestino.getText().trim(),
@@ -193,6 +194,14 @@ public class VentanaVueloCrear extends javax.swing.JPanel {
         
             if(mensaje.equals(Util.OK)){
                  Util.mostrarMensaje(this, "Vuelo creado correctamente.", Util.INFORMACION);
+                 // Limpiamos los campos
+                 tCodigoVuelo.setText("");
+                 tCodigoAvion.setText("");
+                 tAerouertoOrigen.setText("");
+                 tAeropuertoDestino.setText("");
+                 tFechaSalida.setText("");
+                 tFechaLlegada.setText("");
+                 tFechaEscala.setText("");
             }
         }
     }//GEN-LAST:event_bCrearActionPerformed
@@ -255,9 +264,8 @@ public class VentanaVueloCrear extends javax.swing.JPanel {
         
         // Si existe fecha de escala validamos que no sea menor que la fecha de salida
         // y que no sea mayor que la fecha de llegada.
-        if(tFechaSalida.getText().equals("  /  /       :  :  ")){
-            System.out.println("No tiene fecha de escala");
-        }else{
+
+        if(!tFechaEscala.getText().equals("  /  /       :  :  ")){
             if(!Util.validarFecha(tFechaEscala.getText().trim())){
                 Util.mostrarMensaje(this, "La fecha de escala no es valida.", Util.INFORMACION);
                 return false;
