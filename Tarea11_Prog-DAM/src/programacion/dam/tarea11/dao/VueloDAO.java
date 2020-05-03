@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import programacion.dam.tarea11.beans.Vuelo;
@@ -44,14 +45,14 @@ public class VueloDAO {
             declaracion.setString(4, vuelo.getAeropuertoOrigen());
             declaracion.setString(5, vuelo.getAeropuertoDestino());
             Timestamp fechaSalida = Util.convertirFechas(vuelo.getFechaSalida());
-            declaracion.setTimestamp(6, fechaSalida);
+            declaracion.setTimestamp(6, fechaSalida, Calendar.getInstance());
             Timestamp fechaLlegada = Util.convertirFechas(vuelo.getFechaLlegada());
-            declaracion.setTimestamp(7, fechaLlegada);
+            declaracion.setTimestamp(7, fechaLlegada, Calendar.getInstance());
             
             // Si existe fecha de escala la introducimos en la BDD, si no enviamos un null.
             if(null != vuelo.getFechaEscala()){
                 Timestamp fechaEscala = Util.convertirFechas(vuelo.getFechaEscala());
-                declaracion.setTimestamp(8, fechaEscala);
+                declaracion.setTimestamp(8, fechaEscala, Calendar.getInstance());
             }else{
                 declaracion.setDate(8, null);
             }
@@ -113,9 +114,9 @@ public class VueloDAO {
      * @param fechaSalida
      * @return boolean
      */
-    public static boolean borrarVueloPorParametros(String codigoAvion, String aeropuestoSalida, Date fechaSalida){
+        public static int borrarVueloPorParametros(String codigoAvion, String aeropuestoSalida, Date fechaSalida){
         // Delete
-        boolean respuesta = false;
+        int respuesta = 0;
         Connection conexion = null;
         PreparedStatement declaracion = null;
         try {
@@ -128,11 +129,11 @@ public class VueloDAO {
             declaracion.setString (1, codigoAvion);
             declaracion.setString (2, aeropuestoSalida);
             Timestamp fechaSalidaBusqueda = Util.convertirFechas(fechaSalida);
-            declaracion.setTimestamp(3, fechaSalidaBusqueda);
+            declaracion.setTimestamp(3, fechaSalidaBusqueda, Calendar.getInstance());
             
             // ejecutamos la declaración preparada
             int lineasAlteradas = declaracion.executeUpdate();
-            respuesta = lineasAlteradas > 0;
+            respuesta = lineasAlteradas;
             declaracion.close();
         } catch (SQLException ex) {
             Util.mostrarMensaje(null, "Error al borrar el registro del vuelo con parametros ".concat(codigoAvion)
@@ -343,15 +344,23 @@ public class VueloDAO {
             declaracion.setString (1, aeropuertoOrigen);
             declaracion.setString (2, aeropuertoDestino);
             Timestamp fechaSalidaBusqueda = Util.convertirFechas(fechaSalida);
-            declaracion.setTimestamp(3, fechaSalidaBusqueda);
+            declaracion.setTimestamp(3, fechaSalidaBusqueda, Calendar.getInstance());
 
             // ejecutamos la declaración preparada
             consulta = declaracion.executeQuery();
-            System.out.println(consulta.next());
             while(consulta.next()){
-                Vuelo vuelo = new Vuelo(consulta.getString(1), consulta.getString(2), consulta.getInt(3), 
-                                            consulta.getString(4), consulta.getString(5), consulta.getDate(6),
-                                            consulta.getDate(7), consulta.getDate(8));
+                
+                Vuelo vuelo = new Vuelo(
+                        consulta.getString(1), 
+                        consulta.getString(2), 
+                        consulta.getInt(3), 
+                        consulta.getString(4), 
+                        consulta.getString(5), 
+                        Timestamp.valueOf(consulta.getString(6)),
+                        Timestamp.valueOf(consulta.getString(7)), 
+                        (null != consulta.getString(8)) ? 
+                            Timestamp.valueOf(consulta.getString(8)) : null
+                );
                 listaVuelos.add(vuelo);
             }
             consulta.close();

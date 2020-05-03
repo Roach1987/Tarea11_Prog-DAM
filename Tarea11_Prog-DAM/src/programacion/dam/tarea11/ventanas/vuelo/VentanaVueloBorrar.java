@@ -5,6 +5,11 @@
  */
 package programacion.dam.tarea11.ventanas.vuelo;
 
+import java.util.Date;
+import javax.swing.JPanel;
+import programacion.dam.tarea11.dao.VueloDAO;
+import programacion.dam.tarea11.util.Util;
+
 /**
  *
  * @author Roach_Mimi
@@ -17,6 +22,10 @@ public class VentanaVueloBorrar extends javax.swing.JPanel {
     public VentanaVueloBorrar() {
         initComponents();
     }
+    
+    public JPanel ventanaBorrarVuelo(){
+        return this;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,29 +37,155 @@ public class VentanaVueloBorrar extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        bBorrar = new javax.swing.JButton();
+        tCodigoAvion = new javax.swing.JTextField();
+        tAeropuertoOrigen = new javax.swing.JTextField();
+        tFechaSalida = new javax.swing.JFormattedTextField();
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabel1.setText("BORRAR");
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel2.setText("Codigo Avión:");
+
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel3.setText("Aeropuerto Origen:");
+
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel4.setText("Fecha Salida:");
+
+        bBorrar.setBackground(new java.awt.Color(204, 204, 0));
+        bBorrar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        bBorrar.setText("BORRAR");
+        bBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBorrarActionPerformed(evt);
+            }
+        });
+
+        try {
+            tFechaSalida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/#### ##:##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bBorrar)
+                .addGap(252, 252, 252))
             .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(jLabel1)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(41, 41, 41)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(54, 54, 54)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(tCodigoAvion, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tAeropuertoOrigen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tFechaSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 314, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tCodigoAvion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tAeropuertoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(bBorrar)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción para borrar un vuelo de la BDD
+     * @param evt 
+     */
+    private void bBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBorrarActionPerformed
+        if(validarFormulario()){
+            Date fechaSalida = Util.crearFecha(tFechaSalida.getText().trim());
+            int vuelosBorrados = VueloDAO.borrarVueloPorParametros(tCodigoAvion.getText().trim(), 
+                                    tAeropuertoOrigen.getText().trim(), fechaSalida);
+            String mensaje = "";
+            if(vuelosBorrados == 1){
+                mensaje = "Se ha borrado el dato del vuelo, coincidente con los parametros enviados.";
+                tCodigoAvion.setText("");
+                tAeropuertoOrigen.setText("");
+                tFechaSalida.setText("");
+            }else if(vuelosBorrados > 1){
+                mensaje = "Se han borrado mas de un vuelo, coincidentes con los parametros enviados.";
+                tCodigoAvion.setText("");
+                tAeropuertoOrigen.setText("");
+                tFechaSalida.setText("");
+            }else{
+                mensaje = "No hay vuelos que coincidan con estos parametros.";
+            }
+            Util.mostrarMensaje(null, mensaje, Util.INFORMACION);
+        }
+        
+    }//GEN-LAST:event_bBorrarActionPerformed
+
+// ***************************************************************************************************
+// ************************************ Utilidades de la Clase ***************************************
+// ***************************************************************************************************
+    
+    /**
+     * Método que realiza las validaciones del formulario de consulta de vuelos
+     * @return boolean
+     */
+    private boolean validarFormulario(){
+        if(tCodigoAvion.getText().equals("")){
+            Util.mostrarMensaje(this, "El campo Codigo Avión no puede estar vacio", Util.INFORMACION);
+            return false;
+        }
+                
+        if(tAeropuertoOrigen.getText().equals("")){
+            Util.mostrarMensaje(this, "El campo Aeropuerto Origen no puede estar vacio", Util.INFORMACION);
+            return false;
+        }
+        
+        if(tFechaSalida.getText().equals("  /  /       :  :  ")){
+            Util.mostrarMensaje(this, "El campo Fecha Salida no puede estar vacio", Util.INFORMACION);
+            return false;
+        }
+       return true;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bBorrar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField tAeropuertoOrigen;
+    private javax.swing.JTextField tCodigoAvion;
+    private javax.swing.JFormattedTextField tFechaSalida;
     // End of variables declaration//GEN-END:variables
 }

@@ -169,7 +169,7 @@ public class VentanaVueloPrincipal extends javax.swing.JPanel {
     private void bCrearVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCrearVueloActionPerformed
         // limpiamos el panel
         jtbAccionesVuelo.removeAll();
-//        jtbAccionesVuelo.add(ventanaAvionPrincipal.AvionPrincipalPanel());
+        jtbAccionesVuelo.add(ventanaVueloCrear.ventanaCrearVuelo());
         // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
         
@@ -182,7 +182,7 @@ public class VentanaVueloPrincipal extends javax.swing.JPanel {
     private void bBorrarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBorrarVueloActionPerformed
         // limpiamos el panel
         jtbAccionesVuelo.removeAll();
-//        jtbAccionesVuelo.add(ventanaAvionPrincipal.AvionPrincipalPanel());
+        jtbAccionesVuelo.add(ventanaVueloBorrar.ventanaBorrarVuelo());
         // Pintamos el panel auxiliar
         SwingUtilities.updateComponentTreeUI(this); 
         

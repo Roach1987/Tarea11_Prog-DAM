@@ -135,6 +135,7 @@ public class AvionDAO {
     
     /**
      * Método que busca en la tabla avion por el codigo llegado por parametro
+     * y devuelve el avion si este existe.
      * @param codigo
      * @return Avion
      */
@@ -172,5 +173,47 @@ public class AvionDAO {
             }
         }
         return avion;
+    }
+    
+    /**
+     * Método que busca en la tabla avion por el codigo llegado por parametro
+     * y devuelve el numero de plazas si este existe.
+     * @param codigo
+     * @return Avion
+     */
+    public static int buscarPlazasAvionPorCodigo(String codigo){
+        // Search
+        int respuesta = 0;
+        Avion avion = null;
+        Connection conexion = null;
+        PreparedStatement declaracion = null;
+        ResultSet consulta = null;
+        try {
+            // Establecemos la conexión con la BDD.
+            conexion = Util.establecerConexion();
+            
+            // Creamos la query pàra insertar el nuevo avión
+            String query = "SELECT numero_plazas FROM avion WHERE codigo = ?";
+            declaracion = conexion.prepareStatement(query);
+            declaracion.setString (1, codigo);
+            
+            // ejecutamos la declaración preparada
+            consulta = declaracion.executeQuery();
+            
+            if(consulta.next()){
+                respuesta = consulta.getInt(1);
+            }
+            consulta.close();
+            declaracion.close();
+        } catch (SQLException ex) {
+            Util.mostrarMensaje(null, "Error al recuperar el registro del avión con codigo ".concat(codigo),
+                    Util.ADVERTENCIA);
+        }finally{
+            // Cerramos la conexión pase lo que pase.
+            if(null != conexion){
+                Util.cierraConexion(conexion);
+            }
+        }
+        return respuesta;
     }
 }

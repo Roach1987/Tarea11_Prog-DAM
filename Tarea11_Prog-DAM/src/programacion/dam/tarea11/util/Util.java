@@ -7,8 +7,6 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -26,7 +24,10 @@ public class Util {
     public static final String PLAZA_DISPONIBLE = "Disponible";
     public static final String DISTINTIVO_BORRAR = "BORRAR";
     public static final String DISTINTIVO_CONSULTAR = "CONSULTAR";
-    public static final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    public static final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    public static final String OPERACION_FECHA_ESCALA = "FECHA_ESCALA";
+    public static final String OPERACION_FECHA_SIN_ESCALA = "FECHA_SIN_ESCALA";
+    public static final String OK = "OK";
 
 // ************************************************************************************************
 // ************************************ Conexion BDD **********************************************
@@ -108,12 +109,16 @@ public class Util {
      * @return java.sql.Timestamp
      */
     public static Timestamp convertirFechas(Date fecha) {
+        
+        if (fecha == null)
+            return new Timestamp(new Date().getTime());
+        
         Timestamp timestamp = new Timestamp(fecha.getTime());
         return timestamp;
     }
     
         /**
-     * Método que comprueba el formato de una fecha, el formato debe de ser yyyy-MM-dd HH:mm:ss.
+     * Método que comprueba el formato de una fecha, el formato debe de ser dd/MM/yyyy HH:mm:ss.
      * @param fecha
      * @return boolean si la fecha es valida.
      */
@@ -121,7 +126,7 @@ public class Util {
         boolean resultado;
         try {
             // Seteamos al formato fecha el modo  Modo no-permisivo
-            // para que solo soporte el formato yyyy-MM-dd HH:mm:ss
+            // para que solo soporte el formato dd/MM/yyyy HH:mm:ss
             FORMATO_FECHA.setLenient(false);
             FORMATO_FECHA.parse(fecha);
             resultado = true;
@@ -136,7 +141,7 @@ public class Util {
     }
     
     /**
-     * Método que crea una fecha apartir de un String con el formato yyyy-MM-dd HH:mm:ss
+     * Método que crea una fecha apartir de un String con el formato dd/MM/yyyy HH:mm:ss
      * @param fecha
      * @return Date
      */
@@ -148,5 +153,46 @@ public class Util {
             System.out.println(ex.getMessage());
         }
         return fechaResultado;
-    }    
+    }
+    
+    /**
+     * Método que crea un String apartir de una Fecha con el formato dd/MM/yyyy HH:mm:ss
+     * @param fecha
+     * @return Date
+     */
+    public static String crearFechaString(Date fecha){
+        String fechaResultado = null;
+        fechaResultado = FORMATO_FECHA.format(fecha);
+        return fechaResultado;
+    }
+    
+    /**
+     * Metodo que compara las diferentes fechas llegadas por parametro
+     * compara que la fecha de escala sea mayor que la fecha de salida y menor que la fecha de llegada
+     * tambien compara que la fecha de salida sea menor que la fecha de llegada.
+     * @param fecha1
+     * @param fecha2
+     * @param fecha3
+     * @param operacion
+     * @return String
+     */
+    public static String compararFechas(String fecha1, String fecha2, String fecha3, String operacion){
+        String resultado = "";
+        Date primeraFecha = crearFecha(fecha1);
+        Date segundaFecha = crearFecha(fecha2);
+        Date fechaEscala = (null != fecha3) ? crearFecha(fecha3) : null;
+        
+        if(null != fecha3 && operacion.equals(OPERACION_FECHA_ESCALA)){
+            if(primeraFecha.before(fechaEscala)){
+                resultado = (segundaFecha.after(fechaEscala)) ? OK
+                        : "La fecha de escala no puede ser mayor que la de llegada.";
+            }else{
+                resultado = "La fecha de escala no puede ser menor que la de salida.";
+            }
+        }else{
+            resultado = (primeraFecha.before(segundaFecha)) ? OK 
+                    : "La fecha salida no puede ser mayor que la de llegada.";
+        }
+        return resultado;
+    }
 }

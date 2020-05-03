@@ -63,7 +63,7 @@ public class VentanaVueloBuscar extends javax.swing.JPanel {
         });
 
         try {
-            tFechaSalida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-#### ##:##:##")));
+            tFechaSalida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/#### ##:##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -128,10 +128,15 @@ public class VentanaVueloBuscar extends javax.swing.JPanel {
             List<String> lista = UtilDAO.buscarVuelo(tOrigen.getText(), tDestino.getText(), tFechaSalida.getText());
         
             if(null != lista && !lista.isEmpty()){
-                String[] arrayLista = new String[lista.size()];;
+                String[] arrayLista = new String[lista.size()];
                 arrayLista = lista.toArray(arrayLista);
                 String mensaje = Arrays.toString(arrayLista);
                 Util.mostrarMensaje(null, mensaje, Util.INFORMACION);
+                tOrigen.setText("");
+                tDestino.setText("");
+                tFechaSalida.setText("");
+            }else{
+                Util.mostrarMensaje(null, "No existen vuelos con los parametros enviados.", Util.INFORMACION);
             }
         }
     }//GEN-LAST:event_bBuscarVueloActionPerformed
@@ -145,7 +150,6 @@ public class VentanaVueloBuscar extends javax.swing.JPanel {
      * @return boolean
      */
     private boolean validarFormulario(){
-        // Codigo avión
         if(tOrigen.getText().equals("")){
             Util.mostrarMensaje(this, "El campo Aeropuerto Origen no puede estar vacio", Util.INFORMACION);
             return false;
@@ -161,7 +165,7 @@ public class VentanaVueloBuscar extends javax.swing.JPanel {
             return false;
         }
         
-        if(tFechaSalida.getText().equals("  -  -       :  :  ")){
+        if(tFechaSalida.getText().equals("  /  /       :  :  ")){
             Util.mostrarMensaje(this, "El campo Fecha Salida no puede estar vacio", Util.INFORMACION);
             return false;
         }

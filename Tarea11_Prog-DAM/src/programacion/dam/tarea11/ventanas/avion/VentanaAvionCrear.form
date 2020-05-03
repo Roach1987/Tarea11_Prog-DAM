@@ -30,16 +30,14 @@
               </Group>
               <EmptySpace pref="45" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="tModeloAvion" alignment="1" min="-2" pref="187" max="-2" attributes="0"/>
-                  <Component id="tCodigoAvion" alignment="1" min="-2" pref="187" max="-2" attributes="0"/>
-                  <Component id="tNumPlazasAvion" alignment="1" min="-2" pref="187" max="-2" attributes="0"/>
+                  <Component id="bCrearAvion" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="tModeloAvion" alignment="1" min="-2" pref="187" max="-2" attributes="0"/>
+                      <Component id="tCodigoAvion" alignment="1" min="-2" pref="187" max="-2" attributes="0"/>
+                      <Component id="tNumPlazasAvion" alignment="1" min="-2" pref="187" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
-              <Component id="bCrearAvion" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

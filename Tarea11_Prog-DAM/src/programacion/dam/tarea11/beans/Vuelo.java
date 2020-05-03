@@ -1,6 +1,7 @@
 package programacion.dam.tarea11.beans;
 
 import java.util.Date;
+import static programacion.dam.tarea11.util.Util.crearFechaString;
 
 /**
  *
@@ -97,4 +98,22 @@ public class Vuelo {
     public void setFechaEscala(Date fechaEscala) {
         this.fechaEscala = fechaEscala;
     } 
+
+    @Override
+    public String toString() {
+                String fechaEscala = (null != this.getFechaEscala()) ? "Fecha Escala: "
+                        .concat(crearFechaString(this.getFechaEscala()))
+                        : "Sin fecha de escala.";
+                String numeroPlazas = String.valueOf(this.getNumeroPlazasDisponibles());
+                
+                String aux = "Codigo Vuelo: ".concat(this.getCodigo()).concat("\n")
+                        .concat("Codigo Avion: ").concat(this.getCodigoAvion()).concat("\n")
+                        .concat("Plazas disponibles: ").concat(numeroPlazas).concat("\n")
+                        .concat("Aeropuerto Origen: ").concat(this.getAeropuertoOrigen()).concat("\n")
+                        .concat("Aeropuerto Destino: ").concat(this.getAeropuertoDestino()).concat("\n")
+                        .concat("Fecha Salida: ").concat(crearFechaString(this.getFechaSalida())).concat("\n")
+                        .concat("Fecha Llegada: ").concat(crearFechaString(this.getFechaLlegada())).concat("\n")
+                        .concat(fechaEscala);
+                return aux;
+    }
 }
