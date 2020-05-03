@@ -86,7 +86,7 @@ public class VentanaVueloCrear extends javax.swing.JPanel {
         }
 
         jLabel8.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel8.setText("Fecha Escala:");
+        jLabel8.setText("Fecha Escala(opcional):");
         jLabel8.setToolTipText("Campo Opcional");
 
         try {
@@ -135,8 +135,8 @@ public class VentanaVueloCrear extends javax.swing.JPanel {
                             .addComponent(tFechaEscala)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(254, 254, 254)
-                        .addComponent(bCrear)))
-                .addContainerGap(154, Short.MAX_VALUE))
+                        .addComponent(bCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +173,7 @@ public class VentanaVueloCrear extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(tFechaEscala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addComponent(bCrear)
                 .addContainerGap())
         );
@@ -195,13 +195,7 @@ public class VentanaVueloCrear extends javax.swing.JPanel {
             if(mensaje.equals(Util.OK)){
                  Util.mostrarMensaje(this, "Vuelo creado correctamente.", Util.INFORMACION);
                  // Limpiamos los campos
-                 tCodigoVuelo.setText("");
-                 tCodigoAvion.setText("");
-                 tAerouertoOrigen.setText("");
-                 tAeropuertoDestino.setText("");
-                 tFechaSalida.setText("");
-                 tFechaLlegada.setText("");
-                 tFechaEscala.setText("");
+                 limpiarCampos();
             }
         }
     }//GEN-LAST:event_bCrearActionPerformed
@@ -279,6 +273,19 @@ public class VentanaVueloCrear extends javax.swing.JPanel {
             }
         }
        return true;
+    }
+    
+    /**
+     * Método que limpia los campos del formulario.
+     */
+    private void limpiarCampos(){
+        tCodigoVuelo.setText("");
+        tCodigoAvion.setText("");
+        tAerouertoOrigen.setText("");
+        tAeropuertoDestino.setText("");
+        tFechaSalida.setText("");
+        tFechaLlegada.setText("");
+        tFechaEscala.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
